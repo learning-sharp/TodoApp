@@ -1,0 +1,11 @@
+﻿@model TodoApp.Models.TodoItem
+ 
+<h2>Новая задача</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <p>Название: @Html.EditorFor(e => e.Title)</p>
+    <p>Описание: @Html.EditorFor(e => e.Description)</p>
+    <input type="submit" value="Добавить" />
+}

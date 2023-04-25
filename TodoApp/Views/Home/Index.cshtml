@@ -1,0 +1,64 @@
+﻿@model IEnumerable<TodoApp.Models.TodoItem>
+ 
+ 
+<h2>Список задач</h2>
+<h3>Сделано: @Model.Where(e => e.IsDone).Count()</h3>
+<h3>Не сделано: @Model.Where(e => !e.IsDone).Count()</h3>
+<p><a asp-action="Create">Добавить задачу</a></p>
+
+
+@foreach(TodoItem task in Model)
+{
+        if (!task.IsDone)
+        {
+            <div style="background-image: linear-gradient(90deg, #f08989, #ffff); border-radius: 20px; margin: 10px; padding: 5px">
+                <table>
+                    <tr>
+                        <td>
+                            <h4>@task.Title</h4>
+                            <div>@task.Description</div>
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="Home" asp-route-id="@task.ID style="color:inherit;">Изменить</a>
+                        </td>
+                        <td>
+                            <form asp-controller="Home" asp-action="Update" method="post" asp-route-id=@task.ID asp-route-status="true">
+                                <input type="submit" value="Сделал" />
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-controller="Home" asp-action="Delete" method="post" asp-route-id=@task.ID>
+                                <input type="submit" value="Удалить" />
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div style="background-image: linear-gradient(90deg, #91f089, #ffff); border-radius: 20px; margin: 10px; padding: 5px">
+                <table>
+                    <tr>
+                        <td>
+                            <h4>@task.Title</h4>
+                            <div>@task.Description</div>
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="Home" asp-route-id="@task.ID style="color: inherit;">Изменить</a>
+                        </td>
+                        <td>
+                            <form asp-controller="Home" asp-action="Update" method="post" asp-route-id=@task.ID asp-route-status=false>
+                                <input type="submit" value="Не сделал" />
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-controller="Home" asp-action="Delete" method="post" asp-route-id=@task.ID>
+                                <input type="submit" value="Удалить" />
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    }
